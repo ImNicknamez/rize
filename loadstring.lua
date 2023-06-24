@@ -1,1 +1,1 @@
-loadstring(HttpGet("https://github.com/ImNicknamez/rize/blob/main/main.lua", true))
+loadstring(HttpGet("https://raw.githubusercontent.com/ImNicknamez/rize/main/main.lua", true))
