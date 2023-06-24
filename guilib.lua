@@ -49,7 +49,7 @@ local function getcustomassetfunc(path)
             textlabel:Remove()
         end)
         local req = requestfunc({
-            Url = "https://raw.githubusercontent.com/7GrandDadPGN/RiseForRoblox/main/"..path:gsub("rise/assets", "assets"),
+            Url = "https://raw.githubusercontent.com/ImNicknamez/rize/main/"..path:gsub("rize/assets", "assets"),
             Method = "GET"
         })
         writefile(path, req.Body)
@@ -127,10 +127,10 @@ elseif game:GetService("CoreGui"):FindFirstChild('RobloxGui') then
     uilib.ScreenGui = game:GetService("CoreGui").RobloxGui
 end
 
-if shared.testuirise then
-    shared.testuirise:Remove()
+if shared.testuirize then
+    shared.testuirize:Remove()
 end
-shared.testuirise = uilib.ScreenGui
+shared.testuirize = uilib.ScreenGui
 
 local mainframe = Instance.new("Frame")
 mainframe.Size = UDim2.new(0, 830, 0, 700)
@@ -160,7 +160,7 @@ sidecorner.Parent = sidebar
 local sidebartitle = Instance.new("TextLabel")
 sidebartitle.Size = UDim2.new(1, -6, 0, 50)
 sidebartitle.TextSize = 48
-sidebartitle.Text = "Rise"
+sidebartitle.Text = "Rize"
 sidebartitle.Font = Enum.Font.SourceSans
 sidebartitle.BackgroundTransparency = 1
 sidebartitle.TextColor3 = Color3.new(1, 1, 1)
@@ -660,4 +660,4 @@ function uilib:CreateCategory(categorytab)
     return categoryapi
 end
 
-return uilib
+return uiliba
