@@ -1,6 +1,6 @@
-local riseoptions = {
+local rizeoptions = {
     CustomText = "",
-    Theme = "Rise Blend",
+    Theme = "rize Blend",
     RenderToggle = true,
     ShowRenderModules = true,
     NameTags = false,
@@ -9,20 +9,20 @@ local riseoptions = {
     B = 1
 }
 
-local risethemes = {
-    ["Rise Blend"] = {
+local rizethemes = {
+    ["rize Blend"] = {
         TextGUIColor1 = Color3.fromRGB(71, 233, 160),
         TextGUIColor2 = Color3.fromRGB(71, 148, 253),
     },
-    ["Rise"] = {
+    ["rize"] = {
         TextGUIColor1 = Color3.fromRGB(255, 255, 255),
         TextGUIColor2 = Color3.fromRGB(255, 255, 255),
     },
-    ["Rise Christmas"] = {
+    ["rize Christmas"] = {
         TextGUIColor1 = Color3.fromRGB(255, 12, 12),
         TextGUIColor2 = Color3.fromRGB(255, 255, 255),
     },
-    ["Rise Cotton Candy"] = {
+    ["rize Cotton Candy"] = {
         TextGUIColor1 = Color3.fromRGB(241, 111, 204),
         TextGUIColor2 = Color3.fromRGB(101, 246, 254),
     },
@@ -32,15 +32,15 @@ local risethemes = {
     },
 }
 
-if isfolder("rise") == false then
-	makefolder("rise")
+if isfolder("rize") == false then
+	makefolder("rize")
 end
-if isfolder("rise/assets") == false then
-	makefolder("rise/assets")
+if isfolder("rize/assets") == false then
+	makefolder("rize/assets")
 end
 
 local function SaveSettings()
-    writefile("rise/settings.json", game:GetService("HttpService"):JSONEncode(riseoptions))
+    writefile("rize/settings.json", game:GetService("HttpService"):JSONEncode(rizeoptions))
 end
 
 local players = game:GetService("Players")
@@ -68,14 +68,14 @@ local betterisfile = function(file)
 end
 local setthreadidentityfunc = syn and syn.set_thread_identity or set_thread_identity or setidentity or setthreadidentity
 local getthreadidentityfunc = syn and syn.get_thread_identity or get_thread_identity or getidentity or getthreadidentity
-local function GetURL(scripturl, rise)
+local function GetURL(scripturl, rize)
     if shared.VapeDeveloper then
-        if not betterisfile((rise and "rise/" or "vape/")..scripturl) then
-            error("File not found : "..(rise and "rise/" or "vape/")..scripturl)
+        if not betterisfile((rize and "rize/" or "vape/")..scripturl) then
+            error("File not found : "..(rize and "rize/" or "vape/")..scripturl)
         end
-        return readfile((rise and "rise/" or "vape/")..scripturl)
+        return readfile((rize and "rize/" or "vape/")..scripturl)
     else
-        local res = game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/"..(rise and "RiseForRoblox" or "VapeV4ForRoblox").."/main/"..scripturl, true)
+        local res = game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/"..(rize and "rizeForRoblox" or "VapeV4ForRoblox").."/main/"..scripturl, true)
         assert(res ~= "404: Not Found", "File not found")
         return res
     end
@@ -96,11 +96,11 @@ spawn(function()
         local num = 0
         repeat
             task.wait(0.01)
-            local colornew = risethemes[riseoptions.Theme].TextGUIColor1
+            local colornew = rizethemes[rizeoptions.Theme].TextGUIColor1
             if num < 1 then
-                colornew = risethemes[riseoptions.Theme].TextGUIColor1:lerp(risethemes[riseoptions.Theme].TextGUIColor2, num)
+                colornew = rizethemes[rizeoptions.Theme].TextGUIColor1:lerp(rizethemes[rizeoptions.Theme].TextGUIColor2, num)
             elseif num < 2 then 
-                colornew = risethemes[riseoptions.Theme].TextGUIColor2:lerp(risethemes[riseoptions.Theme].TextGUIColor1, num - 1)
+                colornew = rizethemes[rizeoptions.Theme].TextGUIColor2:lerp(rizethemes[rizeoptions.Theme].TextGUIColor1, num - 1)
             else
                 num = 0
             end
@@ -169,7 +169,7 @@ spawn(function()
     VapeGui.CreateNotification = function(top, bottom, duration, customicon)
         local offset = #notificationwindow:GetChildren()
         local togglecheck = (bottom:find("Enabled") or bottom:find("Disabled"))
-        if (togglecheck and (not riseoptions.RenderToggle)) then return end
+        if (togglecheck and (not rizeoptions.RenderToggle)) then return end
         local togglecheck2 = bottom:find("Enabled") and true or false
         local newtext = removeTags(togglecheck and (togglecheck2 and "Enabled " or "Disabled ")..bottom:split(" ")[1] or bottom)
         local calculatedsize = game:GetService("TextService"):GetTextSize(newtext, 13, Enum.Font.Gotham, Vector2.new(100000, 13))
@@ -190,7 +190,7 @@ spawn(function()
         textlabel1.TextSize = 13
         textlabel1.RichText = true
         textlabel1.TextTransparency = 0.1
-        textlabel1.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor1
+        textlabel1.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor1
         textlabel1.BackgroundTransparency = 1
         textlabel1.Position = UDim2.new(0, 10, 0, 10)
         textlabel1.TextXAlignment = Enum.TextXAlignment.Left
@@ -248,7 +248,7 @@ local function getcustomassetfunc(path)
             textlabel:Remove()
         end)
         local req = requestfunc({
-            Url = "https://raw.githubusercontent.com/7GrandDadPGN/RiseForRoblox/main/"..path:gsub("rise/assets", "assets"),
+            Url = "https://raw.githubusercontent.com/ImNicknamez/rize/main/"..path:gsub("rize/assets", "assets"),
             Method = "GET"
         })
         writefile(path, req.Body)
@@ -261,7 +261,7 @@ end
 
 local teleportfunc = game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
     if State == Enum.TeleportState.Started then
-		local teleportstr = 'shared.VapeSwitchServers = true if shared.VapeDeveloper then loadstring(readfile("rise/main.lua"))() else loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/RiseForRoblox/main/main.lua", true))() end'
+		local teleportstr = 'shared.VapeSwitchServers = true if shared.VapeDeveloper then loadstring(readfile("rize/main.lua"))() else loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/rize/main/main.lua", true))() end'
 		if shared.VapeDeveloper then
 			teleportstr = 'shared.VapeDeveloper = true '..teleportstr
 		end
@@ -332,7 +332,7 @@ infolab1.Position = UDim2.new(0, 124, 0, 155)
 infolab1.TextColor3 = Color3.fromRGB(180, 180, 180)
 infolab1.TextSize = 90
 infolab1.Font = Enum.Font.SourceSans
-infolab1.Text = "Rise"
+infolab1.Text = "rize"
 infolab1.TextXAlignment = Enum.TextXAlignment.Left
 infolab1.TextYAlignment = Enum.TextYAlignment.Bottom
 infolab1.BackgroundTransparency = 1
@@ -363,15 +363,10 @@ infolab4.TextColor3 = Color3.fromRGB(130, 130, 130)
 infolab4.TextSize = 30
 infolab4.Font = Enum.Font.SourceSansLight
 infolab4.Text = [[
-Orignal Client by Alan32, Technio
-Strikeless, Nicklas, Auth,
-Hazsi, Solastis
-and Billionare
-intent.store
-riseclient.com
-    
-Roblox Port by 7GrandDad
-All rights goto the Rise Team
+edited by best dev :omegalol:
+rize is the best ngl
+
+All rights goto the nicknamez LL
 ]]
 infolab4.TextXAlignment = Enum.TextXAlignment.Left
 infolab4.TextYAlignment = Enum.TextYAlignment.Top
@@ -687,40 +682,40 @@ targetvape.UpdateInfo = function(tab, targetsize)
 end
 
 
-local risetext = Instance.new("TextLabel")
-risetext.Text = "Rise"
-risetext.Font = Enum.Font.TitilliumWeb
-risetext.TextSize = 53
-risetext.TextColor3 = Color3.new(1, 1, 1)
-risetext.BackgroundTransparency = 1
-risetext.TextYAlignment = Enum.TextYAlignment.Top
-risetext.TextXAlignment = Enum.TextXAlignment.Left
-risetext.Size = UDim2.new(0, 400, 0, 60)
-risetext.Position = UDim2.new(0, 6, 0, -10)
-risetext.Parent = guilib.ScreenGui
-local risetext2 = risetext:Clone()
-risetext2.TextColor3 = Color3.new(0, 0, 0)
-risetext2.Position = UDim2.new(0, 1, 0, 1)
-risetext2.ZIndex = 0
-risetext2.TextTransparency = 0.65
-risetext2.Parent = risetext
-local risegradient = Instance.new("UIGradient")
-risegradient.Rotation = 180
-risegradient.Parent = risetext
-local risetextversion = risetext:Clone()
-local risetextcustom = risetext:Clone()
-risetextversion.TextSize = 26
-risetextversion.Text = "5.94"
-risetextversion.Position = UDim2.new(0, 66, 0, 6)
-risetextversion.Parent = risetext
-risetextversion.TextLabel.TextSize = 26
-risetextversion.TextLabel.Text = risetextversion.Text
-risetextcustom.TextSize = 26
-risetextcustom.Text = riseoptions.CustomText or ""
-risetextcustom.Position = UDim2.new(0, 66, 0, 22)
-risetextcustom.Parent = risetext
-risetextcustom.TextLabel.TextSize = 26
-risetextcustom.TextLabel.Text = risetextcustom.Text
+local rizetext = Instance.new("TextLabel")
+rizetext.Text = "rize"
+rizetext.Font = Enum.Font.TitilliumWeb
+rizetext.TextSize = 53
+rizetext.TextColor3 = Color3.new(1, 1, 1)
+rizetext.BackgroundTransparency = 1
+rizetext.TextYAlignment = Enum.TextYAlignment.Top
+rizetext.TextXAlignment = Enum.TextXAlignment.Left
+rizetext.Size = UDim2.new(0, 400, 0, 60)
+rizetext.Position = UDim2.new(0, 6, 0, -10)
+rizetext.Parent = guilib.ScreenGui
+local rizetext2 = rizetext:Clone()
+rizetext2.TextColor3 = Color3.new(0, 0, 0)
+rizetext2.Position = UDim2.new(0, 1, 0, 1)
+rizetext2.ZIndex = 0
+rizetext2.TextTransparency = 0.65
+rizetext2.Parent = rizetext
+local rizegradient = Instance.new("UIGradient")
+rizegradient.Rotation = 180
+rizegradient.Parent = rizetext
+local rizetextversion = rizetext:Clone()
+local rizetextcustom = rizetext:Clone()
+rizetextversion.TextSize = 26
+rizetextversion.Text = "5.94"
+rizetextversion.Position = UDim2.new(0, 66, 0, 6)
+rizetextversion.Parent = rizetext
+rizetextversion.TextLabel.TextSize = 26
+rizetextversion.TextLabel.Text = rizetextversion.Text
+rizetextcustom.TextSize = 26
+rizetextcustom.Text = rizeoptions.CustomText or ""
+rizetextcustom.Position = UDim2.new(0, 66, 0, 22)
+rizetextcustom.Parent = rizetext
+rizetextcustom.TextLabel.TextSize = 26
+rizetextcustom.TextLabel.Text = rizetextcustom.Text
 
 pcall(function()
     for i,v in pairs(getconnections(game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.OnNewMessage.OnClientEvent)) do
@@ -756,9 +751,9 @@ pcall(function()
                         setthreadidentityfunc(8)
                         local clientname = ""
                         for i,v in pairs(args) do clientname = clientname..v.." " end
-                        risetextcustom.Text = clientname
-                        risetextcustom.TextLabel.Text = clientname
-                        riseoptions.CustomText = clientname
+                        rizetextcustom.Text = clientname
+                        rizetextcustom.TextLabel.Text = clientname
+                        rizeoptions.CustomText = clientname
                         setthreadidentityfunc(oldiden)
                     end
                     return true
@@ -780,7 +775,7 @@ spawn(function()
             val = val - 1
         end
         for i = 1, 10 do 
-            table.insert(tab, ColorSequenceKeypoint.new(((i / 10) + val) % 1, i % 2 == 0 and risethemes[riseoptions.Theme].TextGUIColor2 or risethemes[riseoptions.Theme].TextGUIColor1))
+            table.insert(tab, ColorSequenceKeypoint.new(((i / 10) + val) % 1, i % 2 == 0 and rizethemes[rizeoptions.Theme].TextGUIColor2 or rizethemes[rizeoptions.Theme].TextGUIColor1))
         end
         table.sort(tab, function(a, b)
             return a.Time < b.Time
@@ -799,23 +794,23 @@ spawn(function()
             return a.Time < b.Time
         end)
         pcall(function()
-            risegradient.Color = ColorSequence.new(tab2)
-            risetextversion.UIGradient.Color = ColorSequence.new(tab2)
-            risetextcustom.UIGradient.Color = ColorSequence.new(tab2)
+            rizegradient.Color = ColorSequence.new(tab2)
+            rizetextversion.UIGradient.Color = ColorSequence.new(tab2)
+            rizetextcustom.UIGradient.Color = ColorSequence.new(tab2)
         end)
     until guilib.ScreenGui == nil or guilib.ScreenGui.Parent == nil
 end)
 
-local risearraylist = Instance.new("Frame")
-risearraylist.Size = UDim2.new(1, 0, 1, 0)
-risearraylist.Position = UDim2.new(0, -10, 0, 10)
-risearraylist.BackgroundTransparency = 1
-risearraylist.Parent = guilib.ScreenGui
-local risearraylistlayout = Instance.new("UIListLayout")
-risearraylistlayout.VerticalAlignment = Enum.VerticalAlignment.Top
-risearraylistlayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
-risearraylistlayout.SortOrder = Enum.SortOrder.LayoutOrder
-risearraylistlayout.Parent = risearraylist
+local rizearraylist = Instance.new("Frame")
+rizearraylist.Size = UDim2.new(1, 0, 1, 0)
+rizearraylist.Position = UDim2.new(0, -10, 0, 10)
+rizearraylist.BackgroundTransparency = 1
+rizearraylist.Parent = guilib.ScreenGui
+local rizearraylistlayout = Instance.new("UIListLayout")
+rizearraylistlayout.VerticalAlignment = Enum.VerticalAlignment.Top
+rizearraylistlayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+rizearraylistlayout.SortOrder = Enum.SortOrder.LayoutOrder
+rizearraylistlayout.Parent = rizearraylist
 local newnum = 0
 
 local function refreshbars(textlists)
@@ -823,9 +818,9 @@ local function refreshbars(textlists)
     for i3,v3 in pairs(textlists) do 
         size = size + 22
     end
-    risearraylistlayout.Parent = nil
-    risearraylist:ClearAllChildren()
-    risearraylistlayout.Parent = risearraylist
+    rizearraylistlayout.Parent = nil
+    rizearraylist:ClearAllChildren()
+    rizearraylistlayout.Parent = rizearraylist
 	for i2,v2 in pairs(textlists) do
 		local newstr = v2.Text:gsub(":", " ")
 		local textsize = v2.Size or Vector2.new(0, 0)
@@ -837,11 +832,11 @@ local function refreshbars(textlists)
         frame.TextSize = 30
         frame.TextColor3 = Color3.new(1, 0, 0)
         if calcnum < 1 then 
-            frame.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor1:lerp(risethemes[riseoptions.Theme].TextGUIColor2, calcnum)
+            frame.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor1:lerp(rizethemes[rizeoptions.Theme].TextGUIColor2, calcnum)
         elseif calcnum < 2 then 
-            frame.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor2:lerp(risethemes[riseoptions.Theme].TextGUIColor1, calcnum - 1)
+            frame.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor2:lerp(rizethemes[rizeoptions.Theme].TextGUIColor1, calcnum - 1)
         else
-            frame.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor1
+            frame.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor1
         end
         frame.Font = Enum.Font.TitilliumWeb
 		frame.BackgroundColor3 = Color3.new(0,0,0)
@@ -849,7 +844,7 @@ local function refreshbars(textlists)
 		frame.ZIndex = (#textlists - i2) + 1
 		frame.LayoutOrder = i2
 		frame.Size = UDim2.new(0, textsize.X + 10, 0, 22)
-		frame.Parent = risearraylist
+		frame.Parent = rizearraylist
         if i2 == 1 then 
             local image = Instance.new("ImageLabel")
             image.Size = UDim2.new(1, 0, 0, 6)
@@ -859,7 +854,7 @@ local function refreshbars(textlists)
             image.BackgroundTransparency = 1
             image.ImageColor3 = Color3.new(0, 0, 0)
             image.ZIndex = 0
-            image.Image = getcustomassetfunc("rise/assets/WindowBlurLine.png")
+            image.Image = getcustomassetfunc("rize/assets/WindowBlurLine.png")
             image.BorderSizePixel = 0
             image.Parent = frame
             local imagecorner1 = Instance.new("ImageLabel")
@@ -869,7 +864,7 @@ local function refreshbars(textlists)
             imagecorner1.BackgroundTransparency = 1
             imagecorner1.ImageColor3 = Color3.new(0, 0, 0)
             imagecorner1.ZIndex = 0
-            imagecorner1.Image = getcustomassetfunc("rise/assets/WindowBlurCorner.png")
+            imagecorner1.Image = getcustomassetfunc("rize/assets/WindowBlurCorner.png")
             imagecorner1.BorderSizePixel = 0
             imagecorner1.Parent = frame
             local imagecorner2 = Instance.new("ImageLabel")
@@ -880,7 +875,7 @@ local function refreshbars(textlists)
             imagecorner2.BackgroundTransparency = 1
             imagecorner2.ImageColor3 = Color3.new(0, 0, 0)
             imagecorner2.ZIndex = 0
-            imagecorner2.Image = getcustomassetfunc("rise/assets/WindowBlurCorner.png")
+            imagecorner2.Image = getcustomassetfunc("rize/assets/WindowBlurCorner.png")
             imagecorner2.BorderSizePixel = 0
             imagecorner2.Parent = frame
             local imagerightline = Instance.new("ImageLabel")
@@ -891,7 +886,7 @@ local function refreshbars(textlists)
             imagerightline.BackgroundTransparency = 1
             imagerightline.ImageColor3 = Color3.new(0, 0, 0)
             imagerightline.ZIndex = 0
-            imagerightline.Image = getcustomassetfunc("rise/assets/WindowBlurLine2.png")
+            imagerightline.Image = getcustomassetfunc("rize/assets/WindowBlurLine2.png")
             imagerightline.BorderSizePixel = 0
             imagerightline.Parent = frame
         end
@@ -904,7 +899,7 @@ local function refreshbars(textlists)
             imagecorner4.Rotation = 180
             imagecorner4.ImageColor3 = Color3.new(0, 0, 0)
             imagecorner4.ZIndex = 0
-            imagecorner4.Image = getcustomassetfunc("rise/assets/WindowBlurCorner.png")
+            imagecorner4.Image = getcustomassetfunc("rize/assets/WindowBlurCorner.png")
             imagecorner4.BorderSizePixel = 0
             imagecorner4.Parent = frame
         end
@@ -916,7 +911,7 @@ local function refreshbars(textlists)
         imagecorner3.Rotation = 270
         imagecorner3.ImageColor3 = Color3.new(0, 0, 0)
         imagecorner3.ZIndex = 0
-        imagecorner3.Image = getcustomassetfunc("rise/assets/WindowBlurCorner.png")
+        imagecorner3.Image = getcustomassetfunc("rize/assets/WindowBlurCorner.png")
         imagecorner3.BorderSizePixel = 0
         imagecorner3.Parent = frame
         local imagebottom = Instance.new("ImageLabel")
@@ -933,7 +928,7 @@ local function refreshbars(textlists)
         imagebottom.BackgroundTransparency = 1
         imagebottom.ImageColor3 = Color3.new(0, 0, 0)
         imagebottom.ZIndex = 0
-        imagebottom.Image = getcustomassetfunc("rise/assets/WindowBlurLine.png")
+        imagebottom.Image = getcustomassetfunc("rize/assets/WindowBlurLine.png")
         imagebottom.BorderSizePixel = 0
         imagebottom.Parent = frame
         local imageleftline = Instance.new("ImageLabel")
@@ -944,7 +939,7 @@ local function refreshbars(textlists)
         imageleftline.BackgroundTransparency = 1
         imageleftline.ImageColor3 = Color3.new(0, 0, 0)
         imageleftline.ZIndex = 0
-        imageleftline.Image = getcustomassetfunc("rise/assets/WindowBlurLine2.png")
+        imageleftline.Image = getcustomassetfunc("rize/assets/WindowBlurLine2.png")
         imageleftline.BorderSizePixel = 0
         imageleftline.Parent = frame
 	end
@@ -960,7 +955,7 @@ local function UpdateHud()
 	for i,v in pairs(VapeGui["ObjectsThatCanBeSaved"]) do
 		if v["Type"] == "OptionsButton" and v["Api"]["Name"] ~= "Text GUI" then
 			if v["Api"]["Enabled"] then
-                if not riseoptions.ShowRenderModules then
+                if not rizeoptions.ShowRenderModules then
                     if v["Object"].Parent.Parent.Name == "Render" then continue end
                 end
 				table.insert(tableofmodules, {["Text"] = v["Api"]["Name"], ["ExtraText"] = v["Api"]["GetExtraText"]})
@@ -993,16 +988,16 @@ spawn(function()
     repeat 
         task.wait(0.01)
         local num = newnum
-        local list = risearraylist:GetChildren()
-        table.remove(list, table.find(list, risearraylistlayout))
+        local list = rizearraylist:GetChildren()
+        table.remove(list, table.find(list, rizearraylistlayout))
         for i,v in pairs(list) do
             local calcnum = (newnum + (i / 10)) % 2
             if calcnum < 1 then 
-                v.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor1:lerp(risethemes[riseoptions.Theme].TextGUIColor2, calcnum)
+                v.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor1:lerp(rizethemes[rizeoptions.Theme].TextGUIColor2, calcnum)
             elseif calcnum < 2 then 
-                v.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor2:lerp(risethemes[riseoptions.Theme].TextGUIColor1, calcnum - 1)
+                v.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor2:lerp(rizethemes[rizeoptions.Theme].TextGUIColor1, calcnum - 1)
             else
-                v.TextColor3 = risethemes[riseoptions.Theme].TextGUIColor1
+                v.TextColor3 = rizethemes[rizeoptions.Theme].TextGUIColor1
             end
         end
     until guilib.ScreenGui == nil or guilib.ScreenGui.Parent == nil
@@ -1012,13 +1007,13 @@ local Interface = windowtabs.Render:CreateButton({
     Name = "Interface",
     Function = function() end
 })
-local risethemelist = {}
-for i,v in pairs(risethemes) do table.insert(risethemelist, i) end
+local rizethemelist = {}
+for i,v in pairs(rizethemes) do table.insert(rizethemelist, i) end
 local InterfaceTheme = Interface:CreateDropdown({
     Name = "Theme",
-    List = risethemelist,
+    List = rizethemelist,
     Function = function(val)
-        riseoptions.Theme = val
+        rizeoptions.Theme = val
     end
 })
 local InterfaceRenderR = Interface:CreateSlider({
@@ -1026,10 +1021,10 @@ local InterfaceRenderR = Interface:CreateSlider({
     Min = 0,
     Max = 255,
     Function = function(val)
-        riseoptions.R = val / 255
-        risethemes.Rise.TextGUIColor1 = Color3.new(riseoptions.R, riseoptions.G, riseoptions.B)
-        local h, s, v = Color3.toHSV(risethemes.Rise.TextGUIColor1)
-        risethemes.Rise.TextGUIColor2 = Color3.fromHSV(h, s, math.clamp(v - 0.3, 0, 1))
+        rizeoptions.R = val / 255
+        rizethemes.rize.TextGUIColor1 = Color3.new(rizeoptions.R, rizeoptions.G, rizeoptions.B)
+        local h, s, v = Color3.toHSV(rizethemes.rize.TextGUIColor1)
+        rizethemes.rize.TextGUIColor2 = Color3.fromHSV(h, s, math.clamp(v - 0.3, 0, 1))
     end
 })
 local InterfaceRenderG = Interface:CreateSlider({
@@ -1037,10 +1032,10 @@ local InterfaceRenderG = Interface:CreateSlider({
     Min = 0,
     Max = 255,
     Function = function(val)
-        riseoptions.G = val / 255
-        risethemes.Rise.TextGUIColor1 = Color3.new(riseoptions.R, riseoptions.G, riseoptions.B)
-        local h, s, v = Color3.toHSV(risethemes.Rise.TextGUIColor1)
-        risethemes.Rise.TextGUIColor2 = Color3.fromHSV(h, s, math.clamp(v - 0.3, 0, 1))
+        rizeoptions.G = val / 255
+        rizethemes.rize.TextGUIColor1 = Color3.new(rizeoptions.R, rizeoptions.G, rizeoptions.B)
+        local h, s, v = Color3.toHSV(rizethemes.rize.TextGUIColor1)
+        rizethemes.rize.TextGUIColor2 = Color3.fromHSV(h, s, math.clamp(v - 0.3, 0, 1))
     end
 })
 local InterfaceRenderB = Interface:CreateSlider({
@@ -1048,22 +1043,22 @@ local InterfaceRenderB = Interface:CreateSlider({
     Min = 0,
     Max = 255,
     Function = function(val)
-        riseoptions.B = val / 255
-        risethemes.Rise.TextGUIColor1 = Color3.new(riseoptions.R, riseoptions.G, riseoptions.B)
-        local h, s, v = Color3.toHSV(risethemes.Rise.TextGUIColor1)
-        risethemes.Rise.TextGUIColor2 = Color3.fromHSV(h, s, math.clamp(v - 0.3, 0, 1))
+        rizeoptions.B = val / 255
+        rizethemes.rize.TextGUIColor1 = Color3.new(rizeoptions.R, rizeoptions.G, rizeoptions.B)
+        local h, s, v = Color3.toHSV(rizethemes.rize.TextGUIColor1)
+        rizethemes.rize.TextGUIColor2 = Color3.fromHSV(h, s, math.clamp(v - 0.3, 0, 1))
     end
 })
 local InterfaceRenderNotifications = Interface:CreateToggle({
     Name = "Show Notifications on Toggle",
     Function = function(callback)
-        riseoptions.RenderToggle = callback
+        rizeoptions.RenderToggle = callback
     end
 })
 local InterfaceRenderList = Interface:CreateToggle({
     Name = "Show Render Modules on List",
     Function = function(callback)
-        riseoptions.ShowRenderModules = callback
+        rizeoptions.ShowRenderModules = callback
         VapeGui["UpdateHudEvent"]:Fire()
     end
 })
@@ -1093,9 +1088,9 @@ nametagconnection = players.PlayerRemoving:connect(function(plr)
     end
 end)
 local NameTags = windowtabs.Render:CreateButton({
-    Name = "RiseNameTags",
+    Name = "rizeNameTags",
     Function = function(callback)
-        riseoptions.NameTags = callback
+        rizeoptions.NameTags = callback
         if callback then 
             BindToRenderStep("NameTags", 500, function()
                 for i,plr in pairs(players:GetChildren()) do
@@ -1151,36 +1146,36 @@ local NameTags = windowtabs.Render:CreateButton({
 })
 
 local function LoadSettings()
-    local suc, res = pcall(function() return game:GetService("HttpService"):JSONDecode(readfile("rise/settings.json")) end)
+    local suc, res = pcall(function() return game:GetService("HttpService"):JSONDecode(readfile("rize/settings.json")) end)
     if suc and type(res) == "table" then 
-        if risethemes[res.Theme] == nil then
-            res.Theme = "Rise Blend"
+        if rizethemes[res.Theme] == nil then
+            res.Theme = "rize Blend"
         end
-        riseoptions = res
+        rizeoptions = res
         if InterfaceTheme then 
-            InterfaceTheme:SetValue(riseoptions.Theme)
+            InterfaceTheme:SetValue(rizeoptions.Theme)
         end
         if InterfaceRenderList then 
-            InterfaceRenderList:ToggleButton(false, riseoptions.ShowRenderModules)
+            InterfaceRenderList:ToggleButton(false, rizeoptions.ShowRenderModules)
         end
         if InterfaceRenderNotifications then 
-            InterfaceRenderNotifications:ToggleButton(false, riseoptions.RenderToggle)
+            InterfaceRenderNotifications:ToggleButton(false, rizeoptions.RenderToggle)
         end
         if InterfaceRenderR then 
-            InterfaceRenderR:SetValue(math.floor(riseoptions.R * 255))
+            InterfaceRenderR:SetValue(math.floor(rizeoptions.R * 255))
         end
         if InterfaceRenderG then 
-            InterfaceRenderG:SetValue(math.floor(riseoptions.G * 255))
+            InterfaceRenderG:SetValue(math.floor(rizeoptions.G * 255))
         end
         if InterfaceRenderB then 
-            InterfaceRenderB:SetValue(math.floor(riseoptions.B * 255))
+            InterfaceRenderB:SetValue(math.floor(rizeoptions.B * 255))
         end
         if NameTags then 
-            NameTags:ToggleButton(false, riseoptions.NameTags)
+            NameTags:ToggleButton(false, rizeoptions.NameTags)
         end
-        if risetextcustom then
-            risetextcustom.Text = riseoptions.CustomText
-            risetextcustom.TextLabel.Text = riseoptions.CustomText
+        if rizetextcustom then
+            rizetextcustom.Text = rizeoptions.CustomText
+            rizetextcustom.TextLabel.Text = rizeoptions.CustomText
         end
     end
 end
