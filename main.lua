@@ -1,6 +1,6 @@
 local rizeoptions = {
     CustomText = "",
-    Theme = "rize Blend",
+    Theme = "Rize Blend",
     RenderToggle = true,
     ShowRenderModules = true,
     NameTags = false,
@@ -10,25 +10,29 @@ local rizeoptions = {
 }
 
 local rizethemes = {
-    ["rize Blend"] = {
+    ["Rize Blend"] = {
         TextGUIColor1 = Color3.fromRGB(71, 233, 160),
         TextGUIColor2 = Color3.fromRGB(71, 148, 253),
     },
-    ["rize"] = {
+    ["Rize"] = {
         TextGUIColor1 = Color3.fromRGB(255, 255, 255),
         TextGUIColor2 = Color3.fromRGB(255, 255, 255),
     },
-    ["rize Christmas"] = {
+    ["Rize Christmas"] = {
         TextGUIColor1 = Color3.fromRGB(255, 12, 12),
         TextGUIColor2 = Color3.fromRGB(255, 255, 255),
     },
-    ["rize Cotton Candy"] = {
+    ["Rize Cotton Candy"] = {
         TextGUIColor1 = Color3.fromRGB(241, 111, 204),
         TextGUIColor2 = Color3.fromRGB(101, 246, 254),
     },
     ["Rice"] = {
         TextGUIColor1 = Color3.fromRGB(190, 0, 255),
         TextGUIColor2 = Color3.fromRGB(0, 190, 255),
+    },
+    ["rel"] = {
+        TextGUIColor1 = Color3.fromRGB(98, 84, 255),
+        TextGUIColor2 = Color3.fromRGB(233, 106, 255),
     },
 }
 
@@ -69,25 +73,25 @@ end
 local setthreadidentityfunc = syn and syn.set_thread_identity or set_thread_identity or setidentity or setthreadidentity
 local getthreadidentityfunc = syn and syn.get_thread_identity or get_thread_identity or getidentity or getthreadidentity
 local function GetURL(scripturl, rize)
-    if shared.VapeDeveloper then
-        if not betterisfile((rize and "rize/" or "vape/")..scripturl) then
-            error("File not found : "..(rize and "rize/" or "vape/")..scripturl)
+    if shared.FapeClientDeveloper then
+        if not betterisfile((rize and "rize/" or "FapeClient/")..scripturl) then
+            error("File not found : "..(rize and "rize/" or "FapeClient/")..scripturl)
         end
-        return readfile((rize and "rize/" or "vape/")..scripturl)
+        return readfile((rize and "rize/" or "FapeClient/")..scripturl)
     else
-        local res = game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/"..(rize and "rizeForRoblox" or "VapeV4ForRoblox").."/main/"..scripturl, true)
+        local res = game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/"..(rize and "rize" or "FapeClient").."/main/"..scripturl, true)
         assert(res ~= "404: Not Found", "File not found")
         return res
     end
 end
-local VapeGui
+local FapeClientGui
 local universalcolor = Color3.new(1, 1, 1)
 local targetinfohealthbar
 local guilib = loadstring(GetURL("guilib.lua", true))()
 guilib.ScreenGui.MainFrame.Visible = false
 spawn(function()
     repeat task.wait() until shared.GuiLibrary
-    VapeGui = shared.GuiLibrary
+    FapeClientGui = shared.GuiLibrary
     local notificationwindow = Instance.new("Frame")
     notificationwindow.Size = UDim2.new(1, 0, 1, 0)
     notificationwindow.BackgroundTransparency = 1
@@ -166,7 +170,7 @@ spawn(function()
         return (str:gsub("<[^<>]->", ""))
     end
 
-    VapeGui.CreateNotification = function(top, bottom, duration, customicon)
+    FapeClientGui.CreateNotification = function(top, bottom, duration, customicon)
         local offset = #notificationwindow:GetChildren()
         local togglecheck = (bottom:find("Enabled") or bottom:find("Disabled"))
         if (togglecheck and (not rizeoptions.RenderToggle)) then return end
@@ -225,11 +229,11 @@ spawn(function()
         end)
         return frame
     end
-    VapeGui["MainGui"].ScaledGui.Visible = false
+    FapeClientGui["MainGui"].ScaledGui.Visible = false
 end)
 loadstring(GetURL("NewMainScript.lua"))()
-shared.VapeIndependent = true
-if not VapeGui then VapeGui = shared.GuiLibrary end
+shared.FapeClientIndependent = true
+if not FapeClientGui then FapeClientGui = shared.GuiLibrary end
 local cachedassets = {}
 local function getcustomassetfunc(path)
     if not betterisfile(path) then
@@ -243,7 +247,7 @@ local function getcustomassetfunc(path)
             textlabel.Font = Enum.Font.SourceSans
             textlabel.TextColor3 = Color3.new(1, 1, 1)
             textlabel.Position = UDim2.new(0, 0, 0, -36)
-            textlabel.Parent = VapeGui["MainGui"]
+            textlabel.Parent = FapeClientGui["MainGui"]
             repeat wait() until betterisfile(path)
             textlabel:Remove()
         end)
@@ -261,14 +265,14 @@ end
 
 local teleportfunc = game:GetService("Players").LocalPlayer.OnTeleport:Connect(function(State)
     if State == Enum.TeleportState.Started then
-		local teleportstr = 'shared.VapeSwitchServers = true if shared.VapeDeveloper then loadstring(readfile("rize/main.lua"))() else loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/rize/main/main.lua", true))() end'
-		if shared.VapeDeveloper then
-			teleportstr = 'shared.VapeDeveloper = true '..teleportstr
+		local teleportstr = 'shared.FapeClientSwitchServers = true if shared.FapeClientDeveloper then loadstring(readfile("rize/main.lua"))() else loadstring(game:HttpGet("https://raw.githubusercontent.com/ImNicknamez/rize/main/main.lua", true))() end'
+		if shared.FapeClientDeveloper then
+			teleportstr = 'shared.FapeClientDeveloper = true '..teleportstr
 		end
-		if shared.VapePrivate then
-			teleportstr = 'shared.VapePrivate = true '..teleportstr
+		if shared.FapeClientPrivate then
+			teleportstr = 'shared.FapeClientPrivate = true '..teleportstr
 		end
-		VapeGui["SaveSettings"]()
+		FapeClientGui["SaveSettings"]()
 		queueteleport(teleportstr)
     end
 end)
@@ -285,14 +289,14 @@ local function UnbindFromRenderStep(name)
 		RenderStepTable[name] = nil
 	end
 end
-VapeGui["MainGui"].ScaledGui.Visible = false
-guilib.ScreenGui.MainFrame.Visible = VapeGui["MainGui"].ScaledGui.ClickGui.Visible
-VapeGui["MainGui"].ScaledGui.ClickGui:GetPropertyChangedSignal("Visible"):connect(function()
-    guilib.ScreenGui.MainFrame.Visible = VapeGui["MainGui"].ScaledGui.ClickGui.Visible
+FapeClientGui["MainGui"].ScaledGui.Visible = false
+guilib.ScreenGui.MainFrame.Visible = FapeClientGui["MainGui"].ScaledGui.ClickGui.Visible
+FapeClientGui["MainGui"].ScaledGui.ClickGui:GetPropertyChangedSignal("Visible"):connect(function()
+    guilib.ScreenGui.MainFrame.Visible = FapeClientGui["MainGui"].ScaledGui.ClickGui.Visible
     task.delay(0.001, function()
         game:GetService("RunService"):SetRobloxGuiFocused(false)	
     end)
-    if VapeGui["MainGui"].ScaledGui.ClickGui.Visible then
+    if FapeClientGui["MainGui"].ScaledGui.ClickGui.Visible then
         guilib.ScreenGui.MainFrame.Size = UDim2.new(0, 664, 0, 560)
         guilib.ScreenGui.MainFrame.Position = UDim2.new(0.5, -264, 0.5, -294)
         guilib.ScreenGui.MainFrame:TweenSize(UDim2.new(0, 830, 0, 700), Enum.EasingDirection.InOut, Enum.EasingStyle.Quad, 0.2, true)
@@ -332,7 +336,7 @@ infolab1.Position = UDim2.new(0, 124, 0, 155)
 infolab1.TextColor3 = Color3.fromRGB(180, 180, 180)
 infolab1.TextSize = 90
 infolab1.Font = Enum.Font.SourceSans
-infolab1.Text = "rize"
+infolab1.Text = "Rize"
 infolab1.TextXAlignment = Enum.TextXAlignment.Left
 infolab1.TextYAlignment = Enum.TextYAlignment.Bottom
 infolab1.BackgroundTransparency = 1
@@ -363,10 +367,10 @@ infolab4.TextColor3 = Color3.fromRGB(130, 130, 130)
 infolab4.TextSize = 30
 infolab4.Font = Enum.Font.SourceSansLight
 infolab4.Text = [[
-edited by best dev :omegalol:
-rize is the best ngl
-
-All rights goto the nicknamez LL
+    big credits to nicknamez
+    why?
+    because i fucking edited this version
+    of rise imo, im the best
 ]]
 infolab4.TextXAlignment = Enum.TextXAlignment.Left
 infolab4.TextYAlignment = Enum.TextYAlignment.Top
@@ -375,7 +379,7 @@ infolab4.BackgroundTransparency = 1
 local windowbuttons = {}
 local tab = {}
 local tab2 = {}
-for i,v in pairs(VapeGui["ObjectsThatCanBeSaved"]) do 
+for i,v in pairs(FapeClientGui["ObjectsThatCanBeSaved"]) do 
     if v.Type == "OptionsButton" then
         table.insert(tab, v)
     end
@@ -435,7 +439,7 @@ for i,v in pairs(tab) do
     end
 end
 for i,v in pairs(tab2) do 
-    if v.Type == "Toggle" and tostring(v["Object"].Parent.Parent.Parent) ~= "ClickGui" and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
+    if v.Type == "Toggle" and tostring(v["Object"].Parent.Parent.Parent) ~= "ClickGui" and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
         local newstr = tostring(v["Object"].Parent):gsub("Children", "")
         local old = v["Api"]["ToggleButton"]
         local tog = windowbuttons[newstr]:CreateToggle({
@@ -458,7 +462,7 @@ for i,v in pairs(tab2) do
             tog.Object.Visible = v["Object"].Visible
          end)
     end
-    if v.Type == "Slider" and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
+    if v.Type == "Slider" and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
          local newstr = tostring(v["Object"].Parent):gsub("Children", "")
          local old = v["Api"]["SetValue"]
          local slider = windowbuttons[newstr]:CreateSlider({
@@ -483,7 +487,7 @@ for i,v in pairs(tab2) do
             slider.Object.Visible = v["Object"].Visible
          end)
     end
-    if v.Type == "Dropdown" and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
+    if v.Type == "Dropdown" and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
         local newstr = tostring(v["Object"].Parent):gsub("Children", "")
         local old = v["Api"]["SetValue"]
         local drop = windowbuttons[newstr]:CreateDropdown({
@@ -502,7 +506,7 @@ for i,v in pairs(tab2) do
             drop.Object.Visible = v["Object"].Visible
         end)
     end
-    if v.Type == "TextBox" and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and VapeGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
+    if v.Type == "TextBox" and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")] and FapeClientGui["ObjectsThatCanBeSaved"][tostring(v["Object"].Parent):gsub("Children", "OptionsButton")]["ChildrenObject"] == v["Object"].Parent then
         local newstr = tostring(v["Object"].Parent):gsub("Children", "")
         local old = v["Api"]["SetValue"]
         local drop = {["Value"] = ""}
@@ -526,9 +530,9 @@ end
 
 local oldtab
 local oldfunc
-local olduninject = VapeGui.SelfDestruct
+local olduninject = FapeClientGui.SelfDestruct
 local nametagconnection
-VapeGui.SelfDestruct = function(...)
+FapeClientGui.SelfDestruct = function(...)
     guilib.ScreenGui:Remove()
     if oldtab and oldfunc then 
         oldtab.ProcessCompletedChatMessage = oldfunc
@@ -544,7 +548,7 @@ end
 windowtabs.World:CreateButton({
     Name = "UnInject",
     Function = function(callback)
-        VapeGui.SelfDestruct()
+        FapeClientGui.SelfDestruct()
     end
 })
 
@@ -626,13 +630,13 @@ targetinfodamage.Parent = targetinfopictureframe
 local targetinfodamagecorner = Instance.new("UICorner")
 targetinfodamagecorner.CornerRadius = UDim.new(0, 128)
 targetinfodamagecorner.Parent = targetinfodamage
-local targetvape = shared.VapeTargetInfo
-local oldupdate = targetvape.UpdateInfo
+local targetFapeClient = shared.FapeClientTargetInfo
+local oldupdate = targetFapeClient.UpdateInfo
 local lasthealth = 100
 local lastplr
 local healthanim
 local targetvisible = false
-targetvape.UpdateInfo = function(tab, targetsize)
+targetFapeClient.UpdateInfo = function(tab, targetsize)
     targetvisible = (targetsize > 0)
     if (targetsize > 0) then
         pcall(function()
@@ -683,7 +687,7 @@ end
 
 
 local rizetext = Instance.new("TextLabel")
-rizetext.Text = "rize"
+rizetext.Text = "Rize"
 rizetext.Font = Enum.Font.TitilliumWeb
 rizetext.TextSize = 53
 rizetext.TextColor3 = Color3.new(1, 1, 1)
@@ -705,7 +709,7 @@ rizegradient.Parent = rizetext
 local rizetextversion = rizetext:Clone()
 local rizetextcustom = rizetext:Clone()
 rizetextversion.TextSize = 26
-rizetextversion.Text = "5.94"
+rizetextversion.Text = "uwu.69"
 rizetextversion.Position = UDim2.new(0, 66, 0, 6)
 rizetextversion.Parent = rizetext
 rizetextversion.TextLabel.TextSize = 26
@@ -728,7 +732,7 @@ pcall(function()
                     local args = message:split(" ")
                     table.remove(args, 1)
                     if #args >= 2 then
-                        local module = VapeGui["ObjectsThatCanBeSaved"][args[1].."OptionsButton"]
+                        local module = FapeClientGui["ObjectsThatCanBeSaved"][args[1].."OptionsButton"]
                         print(module)
                         if module then 
                             local suc, res = pcall(function() return Enum.KeyCode[args[2]] end)
@@ -737,7 +741,7 @@ pcall(function()
                                 local oldiden = getthreadidentityfunc()
                                 setthreadidentityfunc(8)
                                 module["Api"]["SetKeybind"](suc and res.Name or "")
-                                VapeGui["CreateNotification"]("", "Set "..args[1].."'s bind to "..args[2]:upper()..".", 5)
+                                FapeClientGui["CreateNotification"]("", "Set "..args[1].."'s bind to "..args[2]:upper()..".", 5)
                                 setthreadidentityfunc(oldiden)
                             end
                         end
@@ -952,7 +956,7 @@ local function UpdateHud()
     local sizes = {}
 	local first = true
 	
-	for i,v in pairs(VapeGui["ObjectsThatCanBeSaved"]) do
+	for i,v in pairs(FapeClientGui["ObjectsThatCanBeSaved"]) do
 		if v["Type"] == "OptionsButton" and v["Api"]["Name"] ~= "Text GUI" then
 			if v["Api"]["Enabled"] then
                 if not rizeoptions.ShowRenderModules then
@@ -976,7 +980,7 @@ local function UpdateHud()
 end
 
 UpdateHud()
-VapeGui["UpdateHudEvent"].Event:connect(UpdateHud)
+FapeClientGui["UpdateHudEvent"].Event:connect(UpdateHud)
 spawn(function()
     repeat 
         task.wait(0.01)
@@ -1059,7 +1063,7 @@ local InterfaceRenderList = Interface:CreateToggle({
     Name = "Show Render Modules on List",
     Function = function(callback)
         rizeoptions.ShowRenderModules = callback
-        VapeGui["UpdateHudEvent"]:Fire()
+        FapeClientGui["UpdateHudEvent"]:Fire()
     end
 })
 
@@ -1073,7 +1077,7 @@ end
 
 local NameTagsFolder = Instance.new("Folder")
 NameTagsFolder.Name = "NameTagsFolder"
-NameTagsFolder.Parent = VapeGui["MainGui"]
+NameTagsFolder.Parent = FapeClientGui["MainGui"]
 local nametagsfolderdrawing = {}
 nametagconnection = players.PlayerRemoving:connect(function(plr)
     if NameTagsFolder:FindFirstChild(plr.Name) then

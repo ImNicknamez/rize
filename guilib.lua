@@ -660,4 +660,4 @@ function uilib:CreateCategory(categorytab)
     return categoryapi
 end
 
-return uiliba
+return uilib
